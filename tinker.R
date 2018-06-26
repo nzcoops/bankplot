@@ -15,7 +15,9 @@ dat2 <- dat %>%
   mutate(date = dmy(DATE),
          bal = parse_number(`ACTUAL BALANCE`),
          int = parse_number(INTEREST),
-         off = parse_number(`OFFSET SAVING`)
+         off = parse_number(`OFFSET SAVING`),
+         dateNum = as.numeric(date),
+         dateNum = dateNum - ((2012-1970)*365)
          ) %>%
   filter(!is.na(date), !is.na(bal)) %>%
   #group_by(date) %>%
@@ -24,6 +26,21 @@ dat2 <- dat %>%
   ungroup() %>%
   select(date:drop)
   
+
+new.df <- data.frame(date = dat2$date[nrow(dat2)] + months(1:300))
+new.df <- new.df %>% 
+  mutate(dateNum = as.numeric(date),
+         dateNum = dateNum - ((2012-1970)*365)
+  )
+  
+mod1 <- lm(bal ~ dateNum, data = dat2)
+new.df$predBal <- predict(mod1, new.df)
+
+mod1 <- lm(bal ~ dateNum + I(dateNum^2) + I(dateNum^3), data = dat2)
+new.df$predBal <- predict(mod1, new.df)
+
+
+
 
 ggplot(dat2, aes(x=date, y = bal)) +
   #geom_line() +
