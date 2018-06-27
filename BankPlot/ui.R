@@ -27,7 +27,16 @@ shinyUI(fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-       plotOutput("distPlot")
+      tabsetPanel(type = "tabs",
+                  tabPanel("Demo", plotOutput("distPlot")),
+                  tabPanel("Overview", includeMarkdown("Intro.Rmd"),
+                           verbatimTextOutput("text1"),
+                           verbatimTextOutput("text2")),
+                  tabPanel("Summary", tableOutput('tab1')),
+                  tabPanel("1Plot", plotOutput("plot1"))#,
+                  #tabPanel("Table", plotOutput("plot1"))
+      )
+      
     )
   )
 ))

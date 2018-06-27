@@ -1,0 +1,7 @@
+## SOomething
+
+And some text
+
+```{r setup, include=FALSE}
+getwd()
+```
