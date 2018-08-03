@@ -40,11 +40,11 @@ shinyServer(function(input, output) {
   output$intro <- renderUI({"Intro.Rmd"})
   
   output$text1 <- renderText({
-    paste("Total Interest Paid", sum(dat2$int))
+    paste("Total Interest Paid:", currency(sum(dat2$int)))
   })
   
   output$text2 <- renderText({
-    paste("Total Principal Paid", sum(dat2$drop, na.rm = T))
+    paste("Total Principal Paid:", currency(sum(dat2$drop, na.rm = T)))
   })
   
 })

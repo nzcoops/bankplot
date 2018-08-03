@@ -1,3 +1,19 @@
+library(gganimate)
+
+
+ggplot(dat2, aes(x=date, y = bal)) +
+  geom_path(stat = "identity") +
+  geom_point() + 
+  coord_cartesian(x = c(dat2$date[1], dat2$date[nrow(dat2)] + years(3)),
+                  y = c(0, max(dat2$bal) * 1.2)) +
+  scale_y_continuous(labels = dollar_format()) +
+  labs(x = "Calendar Year", y = "Balance of Prinipal ($)", title = "Some title") + 
+  transition_time(date) +
+  shadow_trail() 
+
+  animate(p, fps = 12)
+
+
 
 new.df <- data.frame(date = dat2$date[nrow(dat2)] + months(1:300))
 new.df <- new.df %>% 
