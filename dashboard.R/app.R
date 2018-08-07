@@ -217,7 +217,7 @@ server <- function(input, output) {
   
   plotPrep <- function() {
     datT <- mortgage(input$auprin, input$uir, input$udur)
-    plotD <- datT$month %>%
+    datT$month %>%
       mutate(month = 1:n()) %>%
       dplyr::rename(Principal = Monthly_Principal,
                     Interest = Monthly_Interest) %>%
@@ -231,7 +231,7 @@ server <- function(input, output) {
       #coord_cartesian(x = c(dat2$date[1], dat2$date[nrow(dat2)] + years(3)),
       #                y = c(0, max(dat2$int) * 1.2)) +
       scale_y_continuous(labels = dollar_format()) +
-      scale_x_continuous(breaks = seq(12,plotD$month[nrow(plotD)], 36), labels = seq(12,plotD$month[nrow(plotD)], 36) / 12) +
+      scale_x_continuous(breaks = seq(12,plotPrep()$month[nrow(plotPrep())], 36), labels = seq(12,plotPrep()$month[nrow(plotPrep())], 36) / 12) +
       labs(x = "Calendar Year", y = "Balance of Prinipal ($)", title = "Some title")
   })
   
@@ -244,8 +244,8 @@ server <- function(input, output) {
   })
   
   output$ip <- renderGauge({
-    gauge(currency(sum(dat2$int)), min = 0, max = currency(sum(aDFmonth$Monthly_Interest)), gaugeSectors(
-      success = c(100000, currency(sum(aDFmonth$Monthly_Interest))), 
+    gauge(currency(sum(dat2$int)), min = 0, max = currency(sum(mine$month$Monthly_Interest)), gaugeSectors(
+      success = c(100000, currency(sum(mine$month$Monthly_Interest))), 
       warning = c(50001, 100000), 
       danger = c(0, 50000)
     ))
