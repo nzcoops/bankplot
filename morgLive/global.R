@@ -1,3 +1,15 @@
+library(shinydashboard)
+library(flexdashboard)
+library(shiny)
+library(gsheet)
+library(ggplot2)
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(DT)
+library(formattable)
+library(plotly)
+
 theme_set(theme_minimal(base_size = 18))
 
 dat <<-

@@ -1,15 +1,3 @@
-library(shinydashboard)
-library(flexdashboard)
-library(shiny)
-library(gsheet)
-library(tidyverse)
-library(lubridate)
-library(scales)
-library(DT)
-library(formattable)
-library(plotly)
-
-
 
 shinyServer(function(input, output) {
   output$plot1 <- renderPlot({
@@ -86,8 +74,8 @@ shinyServer(function(input, output) {
       #                y = c(0, max(dat2$int) * 1.2)) +
       scale_y_continuous(labels = dollar_format()) +
       scale_x_continuous(
-        breaks = seq(12, plotD$month[nrow(plotD)], 36),
-        labels = seq(12, plotD$month[nrow(plotD)], 36) / 12
+        breaks = seq(12, plotPrep()$month[nrow(plotPrep())], 36),
+        labels = seq(12, plotPrep()$month[nrow(plotPrep())], 36) / 12
       ) +
       labs(x = "Calendar Year", y = "Balance of Prinipal ($)", title = "Some title")
   })
@@ -109,10 +97,10 @@ shinyServer(function(input, output) {
     gauge(
       currency(sum(dat2$int)),
       min = 0,
-      max = currency(sum(aDFmonth$Monthly_Interest)),
+      max = currency(sum(mine$month$Monthly_Interest)),
       gaugeSectors(
         success = c(100000, currency(sum(
-          aDFmonth$Monthly_Interest
+          mine$month$Monthly_Interest
         ))),
         warning = c(50001, 100000),
         danger = c(0, 50000)
