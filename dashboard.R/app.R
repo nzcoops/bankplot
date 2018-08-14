@@ -43,7 +43,7 @@ dat2 <<- dat %>%
          dateNum = dateNum - ((2012-1970)*365),
          add = ifelse(is.na(add), 0, add)
          #add = case_when(add == NA_real_ ~ 0,
-        #                 TRUE ~ as.numeric(add))
+         #                 TRUE ~ as.numeric(add))
   ) %>%
   filter(!is.na(date), !is.na(bal)) %>%
   #group_by(date) %>%
